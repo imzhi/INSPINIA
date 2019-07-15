@@ -426,9 +426,6 @@
                         </li>
                     </ol>
                 </div>
-                <div class="col-lg-2">
-
-                </div>
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
@@ -1756,13 +1753,13 @@
                                 <p>
                                     You can upload new image to crop container and easy download new cropped image.
                                 </p>
-                                <div class="btn-group">
+                                <div>
                                     <label title="Upload image file" for="inputImage" class="btn btn-primary">
-                                        <input type="file" accept="image/*" name="file" id="inputImage" class="hide">
-                                        Upload new image
+                                        <input type="file" accept="image/*" name="file" id="inputImage" style="display:none">
+                                        Upload image
                                     </label>
-                                    <label title="Donload image" id="download" class="btn btn-primary">Download</label>
                                 </div>
+                                <a href="" id="download" class="btn btn-primary">Download</a>
                                 <h4>Other method</h4>
                                 <p>
                                     You may set cropper options with <code>$(image}).cropper(options)</code>
@@ -2045,7 +2042,7 @@
             });
 
             var $image = $(".image-crop > img")
-            $($image).cropper({
+            var $cropped = $($image).cropper({
                 aspectRatio: 1.618,
                 preview: ".img-preview",
                 done: function(data) {
@@ -2080,9 +2077,11 @@
                 $inputImage.addClass("hide");
             }
 
-            $("#download").click(function() {
-                window.open($image.cropper("getDataURL"));
+            $("#download").click(function (link) {
+                link.target.href = $cropped.cropper('getCroppedCanvas', { width: 620, height: 520 }).toDataURL("image/png").replace("image/png", "application/octet-stream");
+                link.target.download = 'cropped.png';
             });
+
 
             $("#zoomIn").click(function() {
                 $image.cropper("zoom", 0.1);
