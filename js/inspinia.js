@@ -1,13 +1,12 @@
 /*
  *
  *   INSPINIA - Responsive Admin Theme
- *   version 2.9.2
+ *   version 2.9.4
  *
  */
 
 
 $(document).ready(function () {
-
 
     // Fast fix bor position issue with Propper.js
     // Will be fixed in Bootstrap 4.1 - https://github.com/twbs/bootstrap/pull/24092
@@ -15,7 +14,7 @@ $(document).ready(function () {
 
 
     // Add body-small class if window less than 768px
-    if ($(window).width() < 769) {
+    if (window.innerWidth < 769) {
         $('body').addClass('body-small')
     } else {
         $('body').removeClass('body-small')
@@ -109,7 +108,7 @@ $(document).ready(function () {
 
     // Append config box / Only for demo purpose
     // Uncomment on server mode to enable XHR calls
-    $.get("skin-config.html", function (data) {
+    $.get("skin-config2.html", function (data) {
        if (!$('body').hasClass('no-skin-config'))
            $('body').append(data);
     });
@@ -148,8 +147,8 @@ $(document).ready(function () {
 });
 
 // Minimalize menu when screen is less than 768px
-$(window).bind(" resize", function () {
-    if ($(this).width() < 769) {
+$(window).bind("resize", function () {
+    if (window.innerWidth  < 769) {
         $('body').addClass('body-small')
     } else {
         $('body').removeClass('body-small')
@@ -167,15 +166,10 @@ $(window).bind("load", function () {
 });
 
 
-
-// Minimalize menu when screen is less than 768px
-$(window).bind("load resize", function () {
-    if ($(this).width() < 769) {
-        $('body').addClass('body-small')
-    } else {
-        $('body').removeClass('body-small')
-    }
-});
+// check if browser support HTML5 local storage
+function localStorageSupport() {
+    return (('localStorage' in window) && window['localStorage'] !== null)
+}
 
 // Local Storage functions
 // Set proper body class and plugins based on user configuration
@@ -225,11 +219,6 @@ $(document).ready(function () {
         }
     }
 });
-
-// check if browser support HTML5 local storage
-function localStorageSupport() {
-    return (('localStorage' in window) && window['localStorage'] !== null)
-}
 
 // For demo purpose - animation css script
 function animationHover(element, animation) {
